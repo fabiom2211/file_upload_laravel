@@ -13,6 +13,13 @@ class FileUploadController extends Controller
         return view("files.index", compact("files"));
     }
 
+    public function download($fileId)
+    {
+        $file = File::where('id', $fileId)->firstOrFail();
+        $pathToFile = storage_path($file->file_path);
+        return response()->download($pathToFile.".txt");
+    }
+
     public function createForm()
     {
         return view('files.file-upload');
@@ -35,8 +42,8 @@ class FileUploadController extends Controller
                 $fileModel = new File();
                 $fileName = time().'_'.$request->file->getClientOriginalName();
                 $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
-                $fileModel->name = time().'_'.$request->file->getClientOriginalName();
-                $fileModel->file_path = '/storage/' . $filePath;
+                $fileModel->name = $fileName;
+                $fileModel->file_path = 'app/public/' . $filePath;
                 $fileModel->save();
 
                 Data::insert($this->treatData($lines, $fileModel->id));//PAREI AQUI

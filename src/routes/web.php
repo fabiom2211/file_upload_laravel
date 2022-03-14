@@ -18,3 +18,4 @@ Route::get('/files', [\App\Http\Controllers\FileUploadController::class, 'index'
 Route::get('/data/{fileId}', [\App\Http\Controllers\DataController::class, 'index'])->name("list_data");
 Route::get('/upload-file', [\App\Http\Controllers\FileUploadController::class, 'createForm'])->name("upload");
 Route::post('/upload-file', [\App\Http\Controllers\FileUploadController::class, 'fileUpload'])->name('fileUpload');
+Route::get('/file/{fileId}/download', [\App\Http\Controllers\FileUploadController::class, 'download'])->name('download');
