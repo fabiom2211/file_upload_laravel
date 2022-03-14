@@ -14,6 +14,13 @@ class File extends Model
         'file_path'
     ];
 
+    public function rules()
+    {
+        return [
+            'file' => 'required|mimes:txt'
+        ];
+    }
+
     public function data()
     {
         return $this->hasMany(Data::class);

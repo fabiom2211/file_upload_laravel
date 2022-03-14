@@ -9,7 +9,7 @@ class FileUploadController extends Controller
 {
     public function index()
     {
-        $files = File::paginate(3);
+        $files = File::paginate(2);
         return view("files.index", compact("files"));
     }
 
@@ -21,7 +21,7 @@ class FileUploadController extends Controller
     public function fileUpload(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
+            'file' => 'required|mimes:txt'
         ]);
 
         if($request->file()) {
