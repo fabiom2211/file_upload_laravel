@@ -22,20 +22,26 @@ git clone https://github.com/fabiom2211/file_upload_laravel.git
 
 2. Setar as permissões de escrita e leitura para as pastas storage e cache:
 ```
+cd file_upload_laravel
 sudo chmod -R 777 src/storage src/bootstrap/cache
 ```
 
-3. Suba os containers para iniciar a aplicação:
+3. Criar os parametros de configuração da aplicação:
+```
+cp src/.env.dev src/.env
+```
+
+4. Suba os containers para iniciar a aplicação:
 ```
 sudo docker-compose up -d
 ```
 
-4. Entre no container para em seguida rodar o migrate:
+5. Entre no container para em seguida rodar o migrate:
 ```
 sudo docker exec -it php_laravel sh
 ```
 
-5. Dentro do container php_laravel rode o migrate:
+6. Dentro do container php_laravel rode o migrate:
 ```
 php artisan migrate
 
