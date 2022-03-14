@@ -13,15 +13,11 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-
         Schema::create('files', function (Blueprint $table) {
-            $table->id();
-            $table->string('buyer');
-            $table->string('description');
-            $table->decimal('unit_price');
-            $table->decimal('quantity');
-            $table->string('address');
-            $table->string('provider');
+            $table->bigIncrements('id')->unsigned()->index();
+            $table->string('name')->nullable();
+            $table->string('file_path')->nullable();
+            $table->timestamps();
         });
     }
 

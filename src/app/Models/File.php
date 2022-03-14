@@ -8,14 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 
     protected $fillable = [
-        'buyer',
-        'description',
-        'unit_price',
-        'quantity',
-        'address',
-        'provider'
+        'name',
+        'file_path'
     ];
 }

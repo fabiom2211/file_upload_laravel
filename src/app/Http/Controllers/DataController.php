@@ -1,11 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use App\Models\File;
-use App\Models\Data;
 
-
-class FileUploadController extends Controller
+class DataController extends Controller
 {
     public function createForm()
     {
@@ -17,23 +16,22 @@ class FileUploadController extends Controller
         $req->validate([
             'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
         ]);
+        $fileModel = new File;
 
         if($req->file()) {
 
-            $fileModel = new File();
+            $lines = file($req->file);
+
+            //TODO
+            File::insert($this->treatData($lines));//PAREI AQUI
+
+
+            $fileName = new File();
             $fileName = time().'_'.$req->file->getClientOriginalName();
             $filePath = $req->file('file')->storeAs('uploads', $fileName, 'public');
             $fileModel->name = time().'_'.$req->file->getClientOriginalName();
             $fileModel->file_path = '/storage/' . $filePath;
-            $fileModel->save();
-
-
-            $lines = file($req->file);
-            //TODO
-            Data::insert($this->treatData($lines, $fileModel->id));//PAREI AQUI
-
-
-
+            //$fileModel->save();
             return back()
                 ->with('success','File has been uploaded.')
                 ->with('file', $fileName);
@@ -41,7 +39,7 @@ class FileUploadController extends Controller
         }
     }
 
-    public function treatData(array $lines = [], $fileId)
+    public function treatData($lines = Array())
     {
         if (isset($lines[0])){
             $header = preg_split( "/\t+/", $lines["0"]);
@@ -58,17 +56,12 @@ class FileUploadController extends Controller
                         "unit_price" => $content["2"],
                         "quantity" => $content["3"],
                         "address" => $content["4"],
-                        "provider" => $content["5"],
-                        "file_id" => $fileId
+                        "provider" => $content["5"]
                     ];
                     $data[] = $values;
                 }
                 return $data;
             }
         }
-    }
-    public function validate(array $lines = [])
-    {
-        
     }
 }
