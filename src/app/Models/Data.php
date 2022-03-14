@@ -19,4 +19,9 @@ class Data extends Model
         'address',
         'provider'
     ];
+
+    public function file()
+    {
+        return $this->belongsTo(File::class);
+    }
 }

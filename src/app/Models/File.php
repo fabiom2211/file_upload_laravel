@@ -13,4 +13,19 @@ class File extends Model
         'name',
         'file_path'
     ];
+
+    public function data()
+    {
+        return $this->hasMany(Data::class);
+    }
+
+    public function sale($fileId)
+    {
+        $total = 0;
+        $datas = File::find($fileId)->data;
+        foreach ($datas as $data) {
+            $total = ($data->quantity*$data->unit_price) + $total;
+        }
+        return number_format($total, 2, ',', '.') ;
+    }
 }
