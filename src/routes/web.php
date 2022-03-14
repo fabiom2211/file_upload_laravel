@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/entrar', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\FileUploadController::class, 'index']);
 Route::get('/files', [\App\Http\Controllers\FileUploadController::class, 'index'])->name("list_file");
 Route::get('/data/{fileId}', [\App\Http\Controllers\DataController::class, 'index'])->name("list_data");
 Route::get('/upload-file', [\App\Http\Controllers\FileUploadController::class, 'createForm'])->name("upload");
