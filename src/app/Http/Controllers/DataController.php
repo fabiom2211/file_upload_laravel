@@ -7,11 +7,14 @@ use App\Models\File;
 
 class DataController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(int $fileId)
     {
         $datas = File::find($fileId)->data;
         return view('datas.data', compact("datas", "fileId"));
     }
-
-
 }

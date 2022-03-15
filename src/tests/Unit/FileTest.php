@@ -11,5 +11,8 @@ class FileTest extends TestCase
      *
      * @return void
      */
-
+    public function __construct(?string $name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+    }
 }

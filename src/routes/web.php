@@ -19,3 +19,8 @@ Route::get('/data/{fileId}', [\App\Http\Controllers\DataController::class, 'inde
 Route::get('/upload-file', [\App\Http\Controllers\FileUploadController::class, 'createForm'])->name("upload");
 Route::post('/upload-file', [\App\Http\Controllers\FileUploadController::class, 'fileUpload'])->name('fileUpload');
 Route::get('/file/{fileId}/download', [\App\Http\Controllers\FileUploadController::class, 'download'])->name('download');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\FileUploadController::class, 'index'])->name('home');
+Route::get('/logout', [App\Http\Controllers\LogoutController::class, 'perform'])->name('logout');

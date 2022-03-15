@@ -14,7 +14,13 @@
     <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-between">
             <a class="p-2 text-muted" href="{{ route("list_file") }}">List File</a>
-            <a class="p-2 text-muted" href="#">Import File</a>
+            <a class="p-2 text-muted" href="{{ route("upload") }}">Import File</a>
+            @auth
+                <a class="p-2 text-muted" href="{{ route("logout") }}">Sair</a>
+            @endauth
+            @guest
+                <a class="p-2 text-muted" href="{{ route("login") }}">Entrar</a>
+            @endguest
         </nav>
     </div>
 
