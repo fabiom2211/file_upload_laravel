@@ -2,17 +2,22 @@
 
 namespace Tests\Unit;
 
+use App\Models\File;
 use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
-    public function __construct(?string $name = null, array $data = [], $dataName = '')
+    /** @test */
+    public function check_if_file_columns_is_correct()
     {
-        parent::__construct($name, $data, $dataName);
+        $file = new File();
+
+        $expected = [
+            "name",
+            "file_path"
+        ];
+
+        $arrayCompared = array_diff($expected, $file->getFillable());
+        $this->assertEquals(0,count($arrayCompared));
     }
 }
